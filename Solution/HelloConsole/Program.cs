@@ -1,8 +1,10 @@
 using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace HelloConsole
 {
@@ -10,30 +12,38 @@ namespace HelloConsole
     {
         static void Main(string[] args)
         {
-            // The code provided will print ‘Hello World’ to the console.
-            // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            string nameStr = String.Empty;
-            string ageStr = String.Empty;
+            AppDomain.CurrentDomain.GetData("C:\\Users\\malik.jones\\source\repos\\MyLab1\\Solution\\HelloConsole\\HelloConsole.exe");
+
+            //The code provided will print ‘Hello World’ to the console.
+            //Press Ctrl+F5(or go to Debug > Start Without Debugging) to run your app.
+             string strName = ConfigurationManager.AppSettings["name"];
+            string strAge = ConfigurationManager.AppSettings["age"];
+            
+            Console.WriteLine(String.Format("Hello {0} you are {1} years old", strName, strAge));
+            Console.ReadKey();
+
+            //string strName = String.Empty;
+            //string strAge = String.Empty;
             switch (args.Length)
             {
 
                 case 0:
                     {
-                        nameStr = PromptName();
-                        ageStr = PromptAge();
+                        strName = PromptName();
+                        strAge = PromptAge();
                         break;
                     }
                 case 1:
                     {
                         if (IsNum(args[0]))
                         {
-                            nameStr = PromptName();
-                            ageStr = args[0];
+                            strName = PromptName();
+                            strAge = args[0];
                         }
                         else
                         {
-                            nameStr = args[0];
-                            ageStr = PromptAge();
+                            strName = args[0];
+                            strAge = PromptAge();
                         }
 
                         break;
@@ -42,20 +52,20 @@ namespace HelloConsole
                     {
                         if (IsNum(args[0]) && IsNum(args[1]))
                         {
-                            nameStr = args[0];
-                            ageStr = args[1];
+                            strName = args[0];
+                            strAge = args[1];
                         }
                         else 
                         if (IsNum(args[0]))
                         {
-                            ageStr = args[0];
-                            nameStr = args[1];
+                            strAge = args[0];
+                            strName = args[1];
                         }
                         else
                             if (IsNum(args[1]))
                         {
-                            nameStr = args[0];
-                            ageStr = args[1];
+                            strName = args[0];
+                            strAge = args[1];
                         }
                         else
                         {
@@ -67,11 +77,11 @@ namespace HelloConsole
                     throw new ArgumentException(String.Format("Wrong number of Errors"));
             }
             
-            Console.WriteLine(String.Format("{0} your age is {1}", nameStr, ageStr));
+            Console.WriteLine(String.Format("{0} your age is {1}", strName, strAge));
             // Really your parents Named you a 'Number'?
-            if (IsNum(nameStr))
+            if (IsNum(strName))
             {
-                DoNameIsANumber(nameStr, ageStr);
+                DoNameIsANumber(strName, strAge);
                
             }
             Console.ReadKey();
